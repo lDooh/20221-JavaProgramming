@@ -1,5 +1,10 @@
 # 20221-JavaProgramming2
 
+# 4주차
+![image](https://user-images.githubusercontent.com/95271528/161996667-fe84525f-582f-4355-a503-247fcd78f4f4.png)
++ 회원가입 데이터 유효성 검사 추가
+  + 가입 버튼을 누를 시 입력한 데이터들에 대해 유효성 검사를 실시하고 조건이 만족되지 않으면 Dialog 메시지를 띄운다.
+
 # 3주차
 ![image](https://user-images.githubusercontent.com/95271528/160288180-61e00c5a-e911-4975-8450-dd62fa763901.png)
 + 로그인 화면에서 회원가입 화면으로 넘어가는 기능 구현
