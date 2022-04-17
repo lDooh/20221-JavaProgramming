@@ -1,5 +1,12 @@
 # 20221-JavaProgramming2
 
+# 5주차
+![image](https://user-images.githubusercontent.com/95271528/163721309-9d73f790-2e72-44ac-b84b-51934f4f78c0.png)
++ 로그인 후 나오는 메인화면 작성
+  + JList<ImageIcon>와 JScrollPane을 이용하여 영화 목록 수평으로 보여줌
+  + JRadioButton과 LocalTime을 이용하여 일주일동안 상영하는 영화 날짜 선택
+  + JComboBox를 이용하여 상영 시간 선택
+
 # 4주차
 ![image](https://user-images.githubusercontent.com/95271528/161996667-fe84525f-582f-4355-a503-247fcd78f4f4.png)
 + 회원가입 데이터 유효성 검사 추가
