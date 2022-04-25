@@ -1,4 +1,7 @@
 # 20221-JavaProgramming2
+# 6주차
+![image](https://user-images.githubusercontent.com/95271528/165097510-d05715c0-5e8f-49af-b824-cb515bf29105.png)
++ 좌석 선택 화면 UI 작성
 
 # 5주차
 ![image](https://user-images.githubusercontent.com/95271528/163721309-9d73f790-2e72-44ac-b84b-51934f4f78c0.png)
