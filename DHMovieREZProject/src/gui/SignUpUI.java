@@ -17,72 +17,73 @@ public class SignUpUI extends JFrame {
 	private JButton okButton, cancelButton;
 	
 	public SignUpUI() {
-		super("È¸¿ø°¡ÀÔ");
+		super("íšŒì›ê°€ì…");
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		
 		panel = new JPanel();
 		panel.setLayout(null);
 		
+		
+		// ID ì…ë ¥ì¹¸
 		idLabel = new JLabel("ID");
 		idLabel.setBounds(25, 25, 100, 50);
 		idLabel.setFont(font);
 		panel.add(idLabel);
 		
-		// ID ÀÔ·ÂÄ­
 		inputID = new JTextField();
 		inputID.setBounds(150, 25, 300, 50);
 		panel.add(inputID);
 		
+		// PW ì…ë ¥ì¹¸
 		pwLabel = new JLabel("PW");
 		pwLabel.setBounds(25, 100, 100, 50);
 		pwLabel.setFont(font);
 		panel.add(pwLabel);
 		
-		// PW ÀÔ·ÂÄ­
 		inputPW = new JPasswordField();
 		inputPW.setBounds(150, 100, 300, 50);
 		panel.add(inputPW);
 		
-		pwLabel2 = new JLabel("PW ÀçÈ®ÀÎ");
+		// PW ì¬ì…ë ¥ì¹¸
+		pwLabel2 = new JLabel("PW ì¬í™•ì¸");
 		pwLabel2.setBounds(25, 175, 100, 50);
 		pwLabel2.setFont(font);
 		panel.add(pwLabel2);
 		
-		// PW ÀçÀÔ·ÂÄ­
 		inputPW2 = new JPasswordField();
 		inputPW2.setBounds(150, 175, 300, 50);
 		panel.add(inputPW2);
 		
-		nickLabel = new JLabel("´Ğ³×ÀÓ");
+		// ë‹‰ë„¤ì„ ì…ë ¥ì¹¸
+		nickLabel = new JLabel("ë‹‰ë„¤ì„");
 		nickLabel.setBounds(25, 250, 100, 50);
 		nickLabel.setFont(font);
 		panel.add(nickLabel);
 		
-		// ´Ğ³×ÀÓ ÀÔ·ÂÄ­
 		inputNick = new JTextField();
 		inputNick.setBounds(150, 250, 300, 50);
 		panel.add(inputNick);
 		
-		birthdayLabel = new JLabel("»ı³â¿ùÀÏ");
+		// ìƒë…„ì›”ì¼ ì…ë ¥ì¹¸, 6ìë¦¬ ì •ìˆ˜ ì…ë ¥
+		birthdayLabel = new JLabel("ìƒë…„ì›”ì¼");
 		birthdayLabel.setBounds(25, 325, 100, 50);
 		birthdayLabel.setFont(font);
 		panel.add(birthdayLabel);
 		
-		// »ı³â¿ùÀÏ ÀÔ·ÂÄ­, 6ÀÚ¸® Á¤¼ö ÀÔ·Â
 		inputBirth = new JTextField();
 		inputBirth.setBounds(150, 325, 300, 50);
 		panel.add(inputBirth);
 		
-		// ¼ºº° ¼±ÅÃÄ­
-		genderLabel = new JLabel("¼ºº°");
+		// ì„±ë³„ ì…ë ¥ì¹¸
+		genderLabel = new JLabel("ì„±ë³„");
 		genderLabel.setFont(font);
 		genderLabel.setBounds(25, 400, 100, 50);
 		panel.add(genderLabel);
 		
 		genderGroup = new ButtonGroup();
-		male = new JRadioButton("³²ÀÚ");
-		female = new JRadioButton("¿©ÀÚ");
+		male = new JRadioButton("ë‚¨ì„±");
+		female = new JRadioButton("ì—¬ì„±");
 		genderGroup.add(male);
 		genderGroup.add(female);
 		male.setFont(font);
@@ -92,12 +93,12 @@ public class SignUpUI extends JFrame {
 		panel.add(male);
 		panel.add(female);
 		
-		phoneLabel = new JLabel("¹øÈ£");
+		// ë²ˆí˜¸ ì…ë ¥ì¹¸
+		phoneLabel = new JLabel("ë²ˆí˜¸");
 		phoneLabel.setBounds(25, 475, 100, 50);
 		phoneLabel.setFont(font);
 		panel.add(phoneLabel);
 		
-		// ¹øÈ£ ÀÔ·ÂÄ­
 		String[] mobileCarrier = { "SKT", "KT", "LGU+" };
 		carrierBox = new JComboBox<String>(mobileCarrier);
 		carrierBox.setFont(font);
@@ -119,7 +120,7 @@ public class SignUpUI extends JFrame {
 		phone3.setBounds(390, 475, 65, 50);
 		panel.add(phone3);
 		
-		okButton = new JButton("°¡ÀÔ");
+		okButton = new JButton("ê°€ì…");
 		okButton.setFont(font);
 		okButton.setBounds(50, 575, 150, 50);
 		panel.add(okButton);
@@ -133,7 +134,7 @@ public class SignUpUI extends JFrame {
 			}
 		});
 		
-		cancelButton = new JButton("Ãë¼Ò");
+		cancelButton = new JButton("ì·¨ì†Œ");
 		cancelButton.setFont(font);
 		cancelButton.setBounds(275, 575, 150, 50);
 		panel.add(cancelButton);
@@ -156,7 +157,7 @@ public class SignUpUI extends JFrame {
 		new SignUpUI();
 	}
 	
-	// È¸¿ø°¡ÀÔ Å×½ºÆ®¿ë
+	// íšŒì›ê°€ì… í…ŒìŠ¤íŠ¸ìš©
 	private void testFunc() {
 		String password = new String(inputPW.getPassword());
 		
@@ -166,64 +167,64 @@ public class SignUpUI extends JFrame {
 		
 		System.out.println("ID: " + inputID.getText() + 
 				"\nPW: " + password + 
-				"\n´Ğ³×ÀÓ: " + inputNick.getText() + 
-				"\n»ı³â¿ùÀÏ: " + inputBirth.getText() + 
-				"\n¼ºº°: " + gender + 
-				"\n¹øÈ£: " + carrierBox.getSelectedItem().toString() + " " + 
+				"\në‹‰ë„¤ì„: " + inputNick.getText() + 
+				"\nìƒë…„ì›”ì¼: " + inputBirth.getText() + 
+				"\nì„±ë³„: " + gender + 
+				"\në²ˆí˜¸: " + carrierBox.getSelectedItem().toString() + " " + 
 				phone1.getText() + "-" + phone2.getText() + "-" + phone3.getText());
 		
 		dispose();
 	}
 	
-	// È¸¿ø°¡ÀÔ À¯È¿¼º °Ë»ç ¸Ş¼­µå
-	private boolean isSatisfiedSignUp() {
-		String regExpId = "^[a-zA-Z0-9]{4,20}$";
-		String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$";
-		String regExpNick = "^[a-zA-Z0-9¤¡-¤¾¤¿-¤Ó°¡-ÆR]{3,15}$";
-		
-		if (!Pattern.matches(regExpId, inputID.getText()))
-		{
-			JOptionPane.showMessageDialog(null,  "¾ÆÀÌµğ´Â ¿µ¹® ´ë/¼Ò¹®ÀÚ¿Í ¼ıÀÚ 4~20ÀÚ¸®¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", "ID", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!Pattern.matches(regExpPw, new String(inputPW.getPassword())))
-		{
-			JOptionPane.showMessageDialog(null,  "ºñ¹Ğ¹øÈ£´Â 8ÀÚ¸®~16ÀÚ¸® ¼ıÀÚ, ¿µ¹®, Æ¯¼ö¹®ÀÚ¸¦ 1°³ ÀÌ»ó Æ÷ÇÔÇØÁÖ¼¼¿ä.", "PW", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!(new String(inputPW.getPassword())).equals(new String(inputPW2.getPassword())))
-		{
-			JOptionPane.showMessageDialog(null,  "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.", "PW ÀçÈ®ÀÎ", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!Pattern.matches(regExpNick,  inputNick.getText()))
-		{
-			JOptionPane.showMessageDialog(null,  "´Ğ³×ÀÓÀº Æ¯¼ö¹®ÀÚ ±İÁö 3~15ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.", "´Ğ³×ÀÓ", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!Pattern.matches("^[0-9]{6}$", inputBirth.getText()))
-		{
-			JOptionPane.showMessageDialog(null,  "6ÀÚ¸® ¼ıÀÚ·Î »ı³â¿ùÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.", "»ı³â¿ùÀÏ", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!male.isSelected() && !female.isSelected())
-		{
-			JOptionPane.showMessageDialog(null,  "¼ºº°À» ¼±ÅÃÇØ ÁÖ¼¼¿ä.", "¼ºº°", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
-		
-		if (!Pattern.matches("^[0-9]{3}$", phone1.getText()) || 
-				!Pattern.matches("^[0-9]{4}$", phone2.getText()) ||
-				!Pattern.matches("^[0-9]{4}$", phone3.getText()))
-		{
-			JOptionPane.showMessageDialog(null,  "¿Ã¹Ù¸¥ ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.", "¹øÈ£", JOptionPane.INFORMATION_MESSAGE);
-			return false;
-		}
+	// íšŒì›ê°€ì… ìœ íš¨ì„± ê²€ì‚¬ ë©”ì„œë“œ
+		private boolean isSatisfiedSignUp() {
+			String regExpId = "^[a-zA-Z0-9]{4,20}$";
+			String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$";
+			String regExpNick = "^[a-zA-Z0-9ê°€-í‡]{3,15}$";
+			
+			if (!Pattern.matches(regExpId, inputID.getText()))
+			{
+				JOptionPane.showMessageDialog(null, "ì•„ì´ë””ëŠ” ì˜ë¬¸ ëŒ€/ì†Œë¬¸ìì™€ ìˆ«ì 4~20ìë¦¬ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", "ID", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!Pattern.matches(regExpPw, new String(inputPW.getPassword())))
+			{
+				JOptionPane.showMessageDialog(null, "ë¹„ë°€ë²ˆí˜¸ëŠ” 8ìë¦¬~16ìë¦¬ ìˆ«ì, ì˜ë¬¸, íŠ¹ìˆ˜ë¬¸ìë¥¼ 1ê°œ ì´ìƒ í¬í•¨í•´ì£¼ì„¸ìš”.", "PW", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!(new String(inputPW.getPassword())).equals(new String(inputPW2.getPassword())))
+			{
+				JOptionPane.showMessageDialog(null, "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", "PW ì¬í™•ì¸", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!Pattern.matches(regExpNick, inputNick.getText()))
+			{
+				JOptionPane.showMessageDialog(null, "ë‹‰ë„¤ì„ì€ íŠ¹ìˆ˜ë¬¸ì ê¸ˆì§€ 3~15ì ì´ë‚´ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.", "ë‹‰ë„¤ì„", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!Pattern.matches("^[0-9]{6}$", inputBirth.getText()))
+			{
+				JOptionPane.showMessageDialog(null, "6ìë¦¬ ìˆ«ìë¡œ ìƒë…„ì›”ì¼ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.", "ìƒë…„ì›”ì¼", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!male.isSelected() && !female.isSelected())
+			{
+				JOptionPane.showMessageDialog(null, "ì„±ë³„ì„ ì„ íƒí•´ ì£¼ì„¸ìš”.", "ì„±ë³„", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
+			
+			if (!Pattern.matches("^[0-9]{3}$", phone1.getText()) || 
+					!Pattern.matches("^[0-9]{4}$", phone2.getText()) ||
+					!Pattern.matches("^[0-9]{4}$", phone3.getText()))
+			{
+				JOptionPane.showMessageDialog(null, "ì˜¬ë°”ë¥¸ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.", "ë²ˆí˜¸", JOptionPane.INFORMATION_MESSAGE);
+				return false;
+			}
 		
 		return true;
 	}

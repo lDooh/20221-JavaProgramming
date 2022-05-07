@@ -12,15 +12,15 @@ public class LoginUI  extends JFrame {
 	private JButton signUpButton;
 	
 	public LoginUI() {		
-		super("¿µÈ­ ¿¹¸Å ·Î±×ÀÎ");
+		super("ì˜í™” ì˜ˆë§¤ ë¡œê·¸ì¸");
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		
 		panel = new JPanel();
 		panel.setLayout(null);
 		
-		JLabel idLabel = new JLabel("¾ÆÀÌµğ");
-		JLabel pwLabel = new JLabel("ºñ¹Ğ¹øÈ£");
+		JLabel idLabel = new JLabel("ì•„ì´ë””");
+		JLabel pwLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸");
 		idLabel.setBounds(35, 25, 100, 50);
 		pwLabel.setBounds(35, 90, 100, 50);
 		idLabel.setFont(font);
@@ -28,26 +28,26 @@ public class LoginUI  extends JFrame {
 		panel.add(idLabel);
 		panel.add(pwLabel);
 		
-		// ¾ÆÀÌµğ ÀÔ·Â
+		// ì•„ì´ë”” ì…ë ¥
 		inputID = new JTextField();
 		inputID.setBounds(150, 25, 300, 50);
 		panel.add(inputID);
 		
-		// ºñ¹Ğ¹øÈ£ ÀÔ·Â
+		// ë¹„ë°€ë²ˆí˜¸ ì…ë ¥
 		inputPW = new JPasswordField();
 		inputPW.setBounds(150, 90, 300, 50);
 		panel.add(inputPW);
 		
-		signInButton = new JButton("·Î±×ÀÎ");
+		signInButton = new JButton("ë¡œê·¸ì¸");
 		signInButton.setBounds(100, 180, 300, 50);
 		signInButton.setFont(font);
 		panel.add(signInButton);
 		
-		signUpButton = new JButton("È¸¿ø°¡ÀÔ");
+		signUpButton = new JButton("íšŒì›ê°€ì…");
 		signUpButton.setBounds(125, 250, 250, 35);
 		signUpButton.setFont(font);
 		panel.add(signUpButton);
-		// ¹öÆ°À» ´©¸£¸é È¸¿ø°¡ÀÔ UIÃ¢À» ¶ç¿ò
+		// ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ íšŒì›ê°€ì… UIì°½ì„ ë„ì›€
 		signUpButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

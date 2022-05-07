@@ -22,7 +22,7 @@ public class MainUI extends JFrame {
 	private JComboBox<String> rezTime;
 	
 	public MainUI() {
-		super("DH ¿µÈ­¿¹¸Å");
+		super("DH ì˜í™”ì˜ˆë§¤");
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		
@@ -44,14 +44,14 @@ public class MainUI extends JFrame {
 		listScrollPane.setBounds(75, 50, 700, 270);
 		panel.add(listScrollPane);
 		
-		rezInfo = new JButton("¿¹¾à Á¤º¸");
+		rezInfo = new JButton("ì˜ˆì•½ ì •ë³´");
 		rezInfo.setBounds(75, 400, 150, 150);
 		rezInfo.setFont(font);
 		panel.add(rezInfo);
 		
 		weekGroup = new ButtonGroup();
 		LocalDate now = LocalDate.now();
-		String[] days = {"¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä", "ÀÏ"};
+		String[] days = {"ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† ", "ì¼"};
 		for (int i = 0; i < days.length; i++)
 		{
 			JRadioButton rb = new JRadioButton(Integer.toString(now.getDayOfMonth()) + 
@@ -76,7 +76,7 @@ public class MainUI extends JFrame {
 		rezTime.setBounds(315, 475, 100, 50);
 		panel.add(rezTime);
 		
-		rezBt = new JButton("¿¹¸ÅÇÏ±â");
+		rezBt = new JButton("ì˜ˆë§¤í•˜ê¸°");
 		rezBt.setFont(font);
 		rezBt.setBounds(560, 460, 200, 120);
 		panel.add(rezBt);
