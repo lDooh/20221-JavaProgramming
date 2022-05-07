@@ -1,4 +1,14 @@
 # 20221-JavaProgramming2
+
+# 8주차
+![image](https://user-images.githubusercontent.com/95271528/167246568-cd525392-cbbb-487e-8bba-2e47237efd31.png)
++ 인원 라디오 버튼 선택 시 가격을 계산에서 JLabel에 반영되도록 이벤트 설정
++ 선택한 인원 수와 좌석 JCheckBox의 수가 맞지 않으면 경고 메시지 출력
++ 예약 정보를 콘솔 창에 출력(테스트용)
+
+# 7주차
++ 중간고사
+
 # 6주차
 ![image](https://user-images.githubusercontent.com/95271528/165097510-d05715c0-5e8f-49af-b824-cb515bf29105.png)
 + 좌석 선택 화면 UI 작성
