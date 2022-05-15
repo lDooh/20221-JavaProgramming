@@ -1,5 +1,11 @@
 # 20221-JavaProgramming2
 
+# 9주차
+![image](https://user-images.githubusercontent.com/95271528/168474838-9d4cded0-2bdb-4595-abd6-c8bf4d206dbd.png)
+![image](https://user-images.githubusercontent.com/95271528/168475016-edee4337-6620-4576-b6df-72378b129c7e.png)
++ DB 테이블 설계
++ DAO, VO 클래스 구현 중
+
 # 8주차
 ![image](https://user-images.githubusercontent.com/95271528/167246568-cd525392-cbbb-487e-8bba-2e47237efd31.png)
 + 인원 라디오 버튼 선택 시 가격을 계산에서 JLabel에 반영되도록 이벤트 설정
