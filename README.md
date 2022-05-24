@@ -1,5 +1,8 @@
 # 20221-JavaProgramming2
 
+# 10주차
++ 회원가입 시 데이터베이스에 회원 정보 등록
+
 # 9주차
 ![image](https://user-images.githubusercontent.com/95271528/168474838-9d4cded0-2bdb-4595-abd6-c8bf4d206dbd.png)
 ![image](https://user-images.githubusercontent.com/95271528/168475016-edee4337-6620-4576-b6df-72378b129c7e.png)
