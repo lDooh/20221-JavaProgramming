@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import DAO.UserDAO;
+
 public class LoginUI  extends JFrame {
 	private JPanel panel;
 	private JTextField inputID;
@@ -42,6 +44,29 @@ public class LoginUI  extends JFrame {
 		signInButton.setBounds(100, 180, 300, 50);
 		signInButton.setFont(font);
 		panel.add(signInButton);
+		signInButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UserDAO userDAO = UserDAO.getInstance();
+				
+				int login = userDAO.signIn(inputID.getText(), new String(inputPW.getPassword()));
+				if (login == 1)
+				{
+					new MainUI(userDAO.getUserDTO(inputID.getText()));
+					dispose();
+				}
+				else if (login == -1)
+				{
+					// ID 없음
+					JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.", "로그인 오류", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if (login == 0)
+				{
+					// PW 틀림
+					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "로그인 오류", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		
 		signUpButton = new JButton("회원가입");
 		signUpButton.setBounds(125, 250, 250, 35);

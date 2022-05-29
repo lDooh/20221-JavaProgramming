@@ -2,13 +2,13 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class rezDTO {
+public class RezDTO {
 	private String id;
 	private String title;
 	private LocalDate mDate;
 	private String seatNum;
 	
-	public rezDTO(String id, String title, LocalDate mDate, String seatNum) {
+	public RezDTO(String id, String title, LocalDate mDate, String seatNum) {
 		this.id = id;
 		this.title = title;
 		this.mDate = mDate;

@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import DTO.UserDTO;
+
 public class MainUI extends JFrame {
 	private JPanel panel;
 	private ImageIcon[] images = { new ImageIcon("src/image/movie1.jpg"),
@@ -21,7 +23,7 @@ public class MainUI extends JFrame {
 	private ArrayList<JRadioButton> rezDays = new ArrayList<>();
 	private JComboBox<String> rezTime;
 	
-	public MainUI() {
+	public MainUI(UserDTO userDTO) {
 		super("DH 영화예매");
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
@@ -89,6 +91,6 @@ public class MainUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new MainUI();
+		new MainUI(null);
 	}
 }

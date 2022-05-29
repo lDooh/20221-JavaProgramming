@@ -2,12 +2,12 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class seatDTO {
+public class SeatDTO {
 	private String title;
 	private LocalDate mDate;
 	private String seatNum;
 	
-	public seatDTO(String title, LocalDate mDate, String seatNum) {
+	public SeatDTO(String title, LocalDate mDate, String seatNum) {
 		this.title = title;
 		this.mDate = mDate;
 		this.seatNum = seatNum;

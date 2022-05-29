@@ -1,10 +1,10 @@
 package DTO;
 
-public class movieDTO {
+public class MovieDTO {
 	private String title;
 	private int runningTime;
 	
-	public movieDTO(String title, int runningTime) {
+	public MovieDTO(String title, int runningTime) {
 		this.title = title;
 		this.runningTime = runningTime;
 	}

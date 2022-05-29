@@ -2,15 +2,15 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class userDTO {
+public class UserDTO {
 	private String id;
 	private String password;
 	private String nickname;
-	private LocalDate bd;
-	private char gender;
+	private String bd;
+	private String gender;
 	private String callNum;
 	
-	public userDTO(String id, String password, String nickname, LocalDate bd, char gender, String callNum) {
+	public UserDTO(String id, String password, String nickname, String bd, String gender, String callNum) {
 		this.id = id;
 		this.password = password;
 		this.nickname = nickname;
@@ -43,19 +43,23 @@ public class userDTO {
 		this.nickname = nickname;
 	}
 	
-	public LocalDate getbd() {
-		return bd;
+	public String getbd() {
+		LocalDate ld = LocalDate.of(Integer.parseInt(bd.substring(0, 4)),
+				Integer.parseInt(bd.substring(4, 6)),
+				Integer.parseInt(bd.substring(6, 8)));
+		
+		return ld.toString();
 	}
 	
-	public void setbd(LocalDate bd) {
+	public void setbd(String bd) {
 		this.bd = bd;
 	}
 	
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 	
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	

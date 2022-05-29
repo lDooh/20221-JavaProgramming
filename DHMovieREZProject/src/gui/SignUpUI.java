@@ -3,8 +3,10 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-//import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import DAO.UserDAO;
+import DTO.UserDTO;
 
 public class SignUpUI extends JFrame {
 	private JPanel panel;
@@ -15,6 +17,7 @@ public class SignUpUI extends JFrame {
 	private JPasswordField inputPW, inputPW2;
 	private JComboBox<String> carrierBox;
 	private JButton okButton, cancelButton;
+	private UserDTO userDTO;
 	
 	public SignUpUI() {
 		super("회원가입");
@@ -128,9 +131,10 @@ public class SignUpUI extends JFrame {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) { 
+				// 유효성 검사 통과하지 못하면 return
 				if (!isSatisfiedSignUp()) return;
 				
-				testFunc();
+				signUpFunc();
 			}
 		});
 		
@@ -152,80 +156,83 @@ public class SignUpUI extends JFrame {
 		setResizable(false);
 		setVisible(true);
 	}
-	
-	public static void main(String[] args) {
-		new SignUpUI();
-	}
-	
-	// 회원가입 테스트용
-	private void testFunc() {
+		
+	// 회원가입 메소드
+	private void signUpFunc() {
 		String password = new String(inputPW.getPassword());
-		
 		String gender;
-		if (male.isSelected()) gender = male.getText();
-		else gender = female.getText();
+		if (male.isSelected())
+			gender = "m";
+		else
+			gender = "f";
 		
-		System.out.println("ID: " + inputID.getText() + 
-				"\nPW: " + password + 
-				"\n닉네임: " + inputNick.getText() + 
-				"\n생년월일: " + inputBirth.getText() + 
-				"\n성별: " + gender + 
-				"\n번호: " + carrierBox.getSelectedItem().toString() + " " + 
-				phone1.getText() + "-" + phone2.getText() + "-" + phone3.getText());
+		userDTO = new UserDTO(inputID.getText(),
+				new String(inputPW.getPassword()),
+				inputNick.getText(),
+				inputBirth.getText(),
+				gender,
+				phone1.getText() + phone2.getText() + phone3.getText());
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.signUp(userDTO);
+		
+		// 테스트용 출력
+		System.out.println("ID: " + userDTO.getId() + 
+				"\nPW: " + userDTO.getPassword() + 
+				"\n닉네임: " + userDTO.getNickname() + 
+				"\n생년월일: " + userDTO.getbd() + 
+				"\n성별: " + userDTO.getGender() + 
+				"\n번호: " + carrierBox.getSelectedItem().toString() + " " +  userDTO.getCallNum());
 		
 		dispose();
 	}
 	
 	// 회원가입 유효성 검사 메서드
-		private boolean isSatisfiedSignUp() {
-			String regExpId = "^[a-zA-Z0-9]{4,20}$";
-			String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$";
-			String regExpNick = "^[a-zA-Z0-9가-힇]{3,15}$";
-			
-			if (!Pattern.matches(regExpId, inputID.getText()))
-			{
-				JOptionPane.showMessageDialog(null, "아이디는 영문 대/소문자와 숫자 4~20자리를 입력해주세요.", "ID", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!Pattern.matches(regExpPw, new String(inputPW.getPassword())))
-			{
-				JOptionPane.showMessageDialog(null, "비밀번호는 8자리~16자리 숫자, 영문, 특수문자를 1개 이상 포함해주세요.", "PW", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!(new String(inputPW.getPassword())).equals(new String(inputPW2.getPassword())))
-			{
-				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "PW 재확인", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!Pattern.matches(regExpNick, inputNick.getText()))
-			{
-				JOptionPane.showMessageDialog(null, "닉네임은 특수문자 금지 3~15자 이내로 입력해주세요.", "닉네임", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!Pattern.matches("^[0-9]{6}$", inputBirth.getText()))
-			{
-				JOptionPane.showMessageDialog(null, "6자리 숫자로 생년월일을 입력해 주세요.", "생년월일", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!male.isSelected() && !female.isSelected())
-			{
-				JOptionPane.showMessageDialog(null, "성별을 선택해 주세요.", "성별", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
-			
-			if (!Pattern.matches("^[0-9]{3}$", phone1.getText()) || 
-					!Pattern.matches("^[0-9]{4}$", phone2.getText()) ||
-					!Pattern.matches("^[0-9]{4}$", phone3.getText()))
-			{
-				JOptionPane.showMessageDialog(null, "올바른 번호를 입력해 주세요.", "번호", JOptionPane.INFORMATION_MESSAGE);
-				return false;
-			}
+	private boolean isSatisfiedSignUp() {
+		String regExpId = "^[a-zA-Z0-9]{4,20}$";
+		String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$";
+		String regExpNick = "^[a-zA-Z0-9가-힇]{3,15}$";
 		
+		if (!Pattern.matches(regExpId, inputID.getText()))
+		{
+			JOptionPane.showMessageDialog(null, "아이디는 영문 대/소문자와 숫자 4~20자리를 입력해주세요.", "ID", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!Pattern.matches(regExpPw, new String(inputPW.getPassword())))
+		{
+			JOptionPane.showMessageDialog(null, "비밀번호는 8자리~16자리 숫자, 영문, 특수문자를 1개 이상 포함해주세요.", "PW", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!(new String(inputPW.getPassword())).equals(new String(inputPW2.getPassword())))
+		{
+			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "PW 재확인", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!Pattern.matches(regExpNick, inputNick.getText()))
+		{
+			JOptionPane.showMessageDialog(null, "닉네임은 특수문자 금지 3~15자 이내로 입력해주세요.", "닉네임", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!Pattern.matches("^[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]$", inputBirth.getText()))
+		{
+			JOptionPane.showMessageDialog(null, "8자리 숫자로 올바른 생년월일을 입력해 주세요.", "생년월일", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!male.isSelected() && !female.isSelected())
+		{
+			JOptionPane.showMessageDialog(null, "성별을 선택해 주세요.", "성별", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		if (!Pattern.matches("^[0-9]{3}$", phone1.getText()) || 
+				!Pattern.matches("^[0-9]{4}$", phone2.getText()) ||
+				!Pattern.matches("^[0-9]{4}$", phone3.getText()))
+		{
+			JOptionPane.showMessageDialog(null, "올바른 번호를 입력해 주세요.", "번호", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
 		return true;
+	}
+		
+	public static void main(String[] args) {
+		new SignUpUI();
 	}
 }
