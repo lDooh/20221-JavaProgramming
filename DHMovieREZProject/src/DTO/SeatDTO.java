@@ -21,12 +21,14 @@ public class SeatDTO {
 		this.title = title;
 	}
 	
-	public LocalDate getMDate() {
-		return mDate;
+	public String getMDate() {
+		return mDate.toString();
 	}
 	
-	public void setMDate (LocalDate mDate) {
-		this.mDate = mDate;
+	public void setMDate (String mDate) {
+		String[] str = mDate.split("-");
+		this.mDate = LocalDate.of(Integer.parseInt(str[0])
+				, Integer.parseInt(str[1]), Integer.parseInt(str[2]));
 	}
 	
 	public String getSeatNum() {

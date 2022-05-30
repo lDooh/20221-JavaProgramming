@@ -6,7 +6,7 @@ public class UserDTO {
 	private String id;
 	private String password;
 	private String nickname;
-	private String bd;
+	private String bd;		// 8자리 숫자로 저장
 	private String gender;
 	private String callNum;
 	
@@ -14,6 +14,13 @@ public class UserDTO {
 		this.id = id;
 		this.password = password;
 		this.nickname = nickname;
+		if (bd.length() == 10)
+		{
+			String[] str = bd.split("-");
+			this.bd = str[0] + str[1] + str[2];
+		}
+		else
+			this.bd = bd;
 		this.bd = bd;
 		this.gender = gender;
 		this.callNum = callNum;
@@ -44,11 +51,12 @@ public class UserDTO {
 	}
 	
 	public String getbd() {
-		LocalDate ld = LocalDate.of(Integer.parseInt(bd.substring(0, 4)),
+		/*LocalDate ld = LocalDate.of(Integer.parseInt(bd.substring(0, 4)),
 				Integer.parseInt(bd.substring(4, 6)),
 				Integer.parseInt(bd.substring(6, 8)));
 		
-		return ld.toString();
+		return ld.toString();*/
+		return bd;
 	}
 	
 	public void setbd(String bd) {

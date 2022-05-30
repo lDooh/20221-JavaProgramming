@@ -53,6 +53,7 @@ public class LoginUI  extends JFrame {
 				if (login == 1)
 				{
 					new MainUI(userDAO.getUserDTO(inputID.getText()));
+					//new ManagerUI();
 					dispose();
 				}
 				else if (login == -1)
@@ -77,6 +78,7 @@ public class LoginUI  extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SignUpUI signUpUI = new SignUpUI();
+				dispose();
 			}
 		});
 		

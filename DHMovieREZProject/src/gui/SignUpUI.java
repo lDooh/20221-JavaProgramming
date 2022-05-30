@@ -145,6 +145,7 @@ public class SignUpUI extends JFrame {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				new LoginUI();
 				dispose();
 			}
 		});
@@ -183,6 +184,7 @@ public class SignUpUI extends JFrame {
 				"\n성별: " + userDTO.getGender() + 
 				"\n번호: " + carrierBox.getSelectedItem().toString() + " " +  userDTO.getCallNum());
 		
+		new LoginUI();
 		dispose();
 	}
 	
