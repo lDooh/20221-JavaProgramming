@@ -1,7 +1,14 @@
 # 20221-JavaProgramming2
 
+# 11주차
+![image](https://user-images.githubusercontent.com/95271528/171348912-1328e284-0c2c-4252-8f03-824ad9d708ff.png)
++ 회원 목록 열람 화면 작성
++ 회원을 선택하고 삭제 버튼을 누르면 회원정보 데이터베이스에서 삭제
+
 # 10주차
+![image](https://user-images.githubusercontent.com/95271528/171348897-17220039-e62e-47f5-8681-43e804254ac0.png)
 + 회원가입 시 데이터베이스에 회원 정보 등록
++ 로그인 시 ID 존재 여부, 비밀번호 일치 여부 확인
 
 # 9주차
 ![image](https://user-images.githubusercontent.com/95271528/168474838-9d4cded0-2bdb-4595-abd6-c8bf4d206dbd.png)
