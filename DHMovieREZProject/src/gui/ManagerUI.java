@@ -10,7 +10,7 @@ import DTO.UserDTO;
 
 public class ManagerUI extends JFrame {
 	private JPanel panel;
-	private String[] tableHeader = {"ID", "Password", "nickname", "birthday", "gender", "callNum"};
+	private String[] tableHeader = {"ID", "nickname", "birthday", "gender", "callNum"};
 	Vector<String> userVector;
 	private UserDAO userDAO;
 	private UserDTO[] usersDTO;
@@ -39,7 +39,6 @@ public class ManagerUI extends JFrame {
 		{
 			userVector = new Vector<>();
 			userVector.add(usersDTO[i].getId());
-			userVector.add(usersDTO[i].getPassword());
 			userVector.add(usersDTO[i].getNickname());
 			userVector.add(usersDTO[i].getbd());
 			userVector.add(usersDTO[i].getGender());
