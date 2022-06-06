@@ -1,5 +1,10 @@
 # 20221-JavaProgramming2
 
+# 12주차
+![image](https://user-images.githubusercontent.com/95271528/172203646-266a2b8d-8ad3-4c40-8fea-953e6b28c26b.png)
++ 메인화면에서 날짜와 시간을 선택하면 좌석 선택 화면으로 해당 정보 전달
++ 좌석 선택 화면에서 좌석을 선택해서 예매하기 버튼을 누르면 예매 정보 데이터베이스에 
+
 # 11주차
 ![image](https://user-images.githubusercontent.com/95271528/171348912-1328e284-0c2c-4252-8f03-824ad9d708ff.png)
 + 회원 목록 열람 화면 작성
@@ -14,7 +19,7 @@
 ![image](https://user-images.githubusercontent.com/95271528/168474838-9d4cded0-2bdb-4595-abd6-c8bf4d206dbd.png)
 ![image](https://user-images.githubusercontent.com/95271528/168475016-edee4337-6620-4576-b6df-72378b129c7e.png)
 + DB 테이블 설계
-+ DAO, VO 클래스 구현 중
++ DAO, DTO 클래스 구현 중
 
 # 8주차
 ![image](https://user-images.githubusercontent.com/95271528/167246568-cd525392-cbbb-487e-8bba-2e47237efd31.png)
