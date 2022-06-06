@@ -5,6 +5,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+import DAO.RezDAO;
+import DTO.RezDTO;
+
 public class SeatSelection extends JFrame {
 	private JPanel panel;
 	private JCheckBox seat[][];
@@ -13,9 +16,15 @@ public class SeatSelection extends JFrame {
 	private ButtonGroup adultGroup, teenGroup;
 	private JRadioButton[] adultRadio, teenRadio;
 	private int personCount, price, checkCount = 0;	// 몇 명의 인원을 선택했는지, 최종 가격, 몇 명이 체크되었는지
+	private String id, day, time;
+	private RezDAO rezDAO;
 	
-	public SeatSelection() {
+	public SeatSelection(String id, String day, String time) {
 		super("좌석 선택");
+		rezDAO = RezDAO.getInstance();
+		this.id= id;
+		this.day = day;
+		this.time = time;
 		
 		Font seatFont = new Font("Slab Serif", Font.BOLD, 15);
 		Font font = new Font("Slab Serif", Font.BOLD, 20);		
@@ -105,6 +114,7 @@ public class SeatSelection extends JFrame {
 				{
 					int adultNum = 0, teenNum = 0;
 					
+					// 성인 몇 명 선택했는지 계산
 					for (int i = 0; i < adultRadio.length; i++)
 					{
 						if (adultRadio[i].isSelected())
@@ -113,6 +123,7 @@ public class SeatSelection extends JFrame {
 							break;
 						}
 					}
+					// 청소년 몇 명 선택했는지 계산
 					for (int i = 0; i < teenRadio.length; i++)
 					{
 						if (teenRadio[i].isSelected())
@@ -122,13 +133,21 @@ public class SeatSelection extends JFrame {
 						}
 					}
 					
-					System.out.printf("성인 %d명, 청소년 %d명 => 총 %d명\n가격: %d원\n", 
-							adultNum, teenNum, checkCount, adultNum * 10000 + teenNum * 8000);
-					System.out.print("선택 좌석: ");
+					/*System.out.printf("성인 %d명, 청소년 %d명 => 총 %d명\n가격: %d원\n", 
+							adultNum, teenNum, checkCount, adultNum * 10000 + teenNum * 8000);*/
+					//System.out.print("선택 좌석: ");
 					for (int i = 0; i < seat.length; i++)
+					{
 						for (int j = 0; j < seat[i].length; j++)
+						{
 							if (seat[i][j].isSelected())
-								System.out.print(seat[i][j].getText() + "\t");
+							{
+								//System.out.print(seat[i][j].getText() + "\t");
+								// TODO: 선택한 영화 제목 받아서 전달해주기
+								rezDAO.reserve(new RezDTO(id, null, day, time, seat[i][j].getText()));
+							}
+						}
+					}
 				}
 			}
 		});
@@ -188,6 +207,6 @@ public class SeatSelection extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new SeatSelection();
+		new SeatSelection(null, null, null);
 	}
 }

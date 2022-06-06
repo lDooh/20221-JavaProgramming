@@ -1,17 +1,30 @@
 package DTO;
 
-import java.time.LocalDate;
-
 public class RezDTO {
 	private String id;
 	private String title;
-	private LocalDate mDate;
+	private String mDate;		// yyyymmdd 8자리 형식으로 저장
+	private String mTime;		// hhmmss 6자리 형식으로 저장
 	private String seatNum;
 	
-	public RezDTO(String id, String title, LocalDate mDate, String seatNum) {
+	public RezDTO(String id, String title, String mDate, String mTime, String seatNum) {
 		this.id = id;
 		this.title = title;
-		this.mDate = mDate;
+		if (mDate.length() == 10)
+		{
+			String[] str = mDate.split("-");
+			this.mDate = str[0] + str[1] + str[2];
+		}
+		else
+			this.mDate = mDate;
+		if (mTime.length() == 8)
+		{
+			String[] str = mTime.split(":");
+			this.mTime = str[0] + str[1] + str[2];
+		}
+		else
+			this.mTime = mTime;
+		this.mTime = mTime;
 		this.seatNum = seatNum;
 	}
 	
@@ -31,12 +44,20 @@ public class RezDTO {
 		this.title = title;
 	}
 	
-	public LocalDate getMDate() {
+	public String getMDate() {
 		return mDate;
 	}
 	
-	public void setMDate(LocalDate mDate) {
+	public void setMDate(String mDate) {
 		this.mDate = mDate;
+	}
+	
+	public String getMTime() {
+		return mTime;
+	}
+	
+	public void setMTime(String mTime) {
+		this.mTime = mTime;
 	}
 	
 	public String getSeatNum() {

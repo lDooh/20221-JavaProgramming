@@ -12,9 +12,11 @@ public class LoginUI  extends JFrame {
 	private JPasswordField inputPW;
 	private JButton signInButton;
 	private JButton signUpButton;
+	private UserDAO userDAO;
 	
 	public LoginUI() {		
 		super("영화 예매 로그인");
+		userDAO = UserDAO.getInstance();
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		
@@ -46,12 +48,11 @@ public class LoginUI  extends JFrame {
 		panel.add(signInButton);
 		signInButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				UserDAO userDAO = UserDAO.getInstance();
-				
+			public void actionPerformed(ActionEvent e) {			
 				int login = userDAO.signIn(inputID.getText(), new String(inputPW.getPassword()));
 				if (login == 1)
 				{
+					// 로그인 하면 해당 유저 정보를 MainUI에 전달
 					new MainUI(userDAO.getUserDTO(inputID.getText()));
 					//new ManagerUI();
 					dispose();

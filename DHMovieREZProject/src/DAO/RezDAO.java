@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.util.Properties;
 import java.sql.*;
 
-import DTO.SeatDTO;
+import DTO.UserDTO;
+import DTO.RezDTO;
 
-public class SeatDAO {
+public class RezDAO {
 	// 싱글톤 패턴
-	private static SeatDAO instance;
+	private static RezDAO instance;
 	
 	private static String driverName;
 	private static String url;
@@ -22,7 +23,7 @@ public class SeatDAO {
 	private static ResultSet resultSet = null;
 	
 	// 객체 생성을 막기 위해 생성자 private
-	private SeatDAO() {
+	private RezDAO() {
 		String path = System.getProperty("user.dir") + "/local.properties";
 		// System.out.println(path);
 		
@@ -42,9 +43,9 @@ public class SeatDAO {
 		password = prop.getProperty("password");
 	}
 	
-	public static SeatDAO getInstance() {
+	public static RezDAO getInstance() {
 		if (instance == null)
-			instance = new SeatDAO();
+			instance = new RezDAO();
 		
 		return instance;
 	}
@@ -75,25 +76,24 @@ public class SeatDAO {
 		}
 	}
 	
-	public boolean signUp(SeatDAO seatDAO) {
-		String sql = "INSERT INTO userinfo VALUES (?, ?, ?, ?, ?, ?)";
+	// 티켓 등록
+	public boolean reserve(RezDTO rezDTO) {
+		String sql = "INSERT INTO rez VALUES (?, ?, ?, ?, ?)";
 		int count = 0;
 		
 		connect();
 		
-		// TODO: SeatDTO로 변경
 		try {
 			statement = connection.prepareStatement(sql);
-			statement.setString(1,  userDTO.getId());
-			statement.setString(2,  userDTO.getPassword());
-			statement.setString(3,  userDTO.getNickname());
-			statement.setString(4,  userDTO.getbd());
-			statement.setString(5,  userDTO.getGender());
-			statement.setString(6,  userDTO.getCallNum());
+			statement.setString(1,  rezDTO.getId());
+			statement.setString(2,  rezDTO.getTitle());
+			statement.setString(3,  rezDTO.getMDate());
+			statement.setString(4,  rezDTO.getMTime());
+			statement.setString(5,  rezDTO.getSeatNum());
 			
 			count = statement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("회원가입 SQL 오류");
+			System.out.println("티켓 등록 SQL 오류");
 			e.printStackTrace();
 		} finally {
 			connectionClose();
@@ -101,41 +101,11 @@ public class SeatDAO {
 		
 		if (count == 1)
 		{
-			//System.out.println("회원 가입 성공");
+			//System.out.println("티켓 등록 성공");
 			return true;
 		}
 		
 		return false;
-	}
-	
-	// -2: SQL 오류, -1: ID 없음, 0: 비밀번호 틀림, 1: 로그인 성공
-	public int signIn(String id, String password) {
-		String sql = "SELECT password FROM userinfo WHERE id = '" + id + "'";
-		
-		connect();
-		
-		try {
-			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
-			
-			if (resultSet.next())
-			{
-				if (resultSet.getString("password").equals(password))
-					return 1;
-				else
-					return 0;
-			}
-			else
-			{
-				//System.out.println("없는 ID");
-				return -1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			connectionClose();
-		}
-		return -2;
 	}
 	
 	public UserDTO[] getUsers() {
@@ -221,9 +191,9 @@ public class SeatDAO {
 	}
 
 	public static void main(String[] args) {
-		SeatDAO seatDAO = SeatDAO.getInstance();
-		seatDAO.connect();
-		seatDAO.connectionClose();
+		RezDAO rezDAO = RezDAO.getInstance();
+		rezDAO.connect();
+		rezDAO.connectionClose();
 		
 		System.out.println("driverName: " + driverName
 				+ "\nurl: " + url
