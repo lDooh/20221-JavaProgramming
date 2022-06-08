@@ -16,14 +16,18 @@ public class RezDTO {
 			this.mDate = str[0] + str[1] + str[2];
 		}
 		else
+		{
 			this.mDate = mDate;
+		}
 		if (mTime.length() == 8)
 		{
 			String[] str = mTime.split(":");
 			this.mTime = str[0] + str[1] + str[2];
 		}
 		else
+		{
 			this.mTime = mTime;
+		}
 		this.mTime = mTime;
 		this.seatNum = seatNum;
 	}

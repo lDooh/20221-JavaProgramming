@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.sql.*;
 
-import DTO.UserDTO;
 import DTO.RezDTO;
 
 public class RezDAO {
@@ -108,82 +107,61 @@ public class RezDAO {
 		return false;
 	}
 	
-	public UserDTO[] getUsers() {
-		String sql = "SELECT * FROM userinfo";
-		UserDTO[] userDTO = null;
+	// 해당 유저의 예약 정보 모두 가져오기
+	public RezDTO[] getRezs(String id) {
+		String sql = "SELECT * FROM rez WHERE ID = '" + id + "' ORDER BY title, mDate, mTime, seatNum";
+		RezDTO[] rezDTO = null;
 		
 		connect();
 		
 		try {
-			statement = connection.prepareStatement("SELECT count(id) FROM userinfo;");
-			resultSet = statement.executeQuery("SELECT count(id) FROM userinfo;");
+			statement = connection.prepareStatement("SELECT count(ID) FROM rez WHERE ID = '" + id + "'");
+			resultSet = statement.executeQuery("SELECT count(ID) FROM rez WHERE ID = '" + id + "'");
 			resultSet.next();
-			int rows = Integer.parseInt(resultSet.getString("count(id)"));
-			userDTO = new UserDTO[rows];
+			int rows = Integer.parseInt(resultSet.getString("count(ID)"));
+			rezDTO = new RezDTO[rows];
 			
 			statement = connection.prepareStatement(sql);
 			resultSet = statement.executeQuery(sql);
 			
-			UserDTO tmpUserDTO = null;
+			RezDTO tmprezDTO = null;
 			resultSet.next();
 			for (int i = 0; i < rows; i++)
 			{				
-				tmpUserDTO = new UserDTO(resultSet.getString("id"),
-										resultSet.getString("password"),
-										resultSet.getString("nickname"),
-										resultSet.getString("birthday"),
-										resultSet.getString("gender"),
-										resultSet.getString("callNum"));
-				userDTO[i] = tmpUserDTO;
+				tmprezDTO = new RezDTO(resultSet.getString("id"),
+										resultSet.getString("title"),
+										resultSet.getString("mDate"),
+										resultSet.getString("mTime"),
+										resultSet.getString("seatNum"));
+				rezDTO[i] = tmprezDTO;
 				resultSet.next();
 			}
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		} finally {
 			connectionClose();
 		}
 		
-		return userDTO;
+		return rezDTO;
 	}
-	
-	public UserDTO getUserDTO(String id) {
-		UserDTO userDTO;
-		String sql = "SELECT * FROM userinfo WHERE id = '" + id + "'";
+
+	// 예약 정보 삭제
+	public void deleteRez(RezDTO rezDTO) {
+		String sql = "DELETE FROM rez WHERE ID = ? AND title = ? AND "
+				+ "mDate  = ? AND mTime = ? AND seatNum = ?";
 		
 		connect();
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
-			
-			resultSet.next();
-			userDTO = new UserDTO(resultSet.getString("id"),
-					resultSet.getString("password"),
-					resultSet.getString("nickname"),
-					resultSet.getString("birthday"),
-					resultSet.getString("gender"),
-					resultSet.getString("callNum"));
-			return userDTO;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			connectionClose();
-		}
-		
-		return null;
-	}
-	
-	public void deleteUser(String id) {
-		String sql = "DELETE FROM userinfo WHERE id = ?";
-		
-		connect();
-		
-		try {
-			statement = connection.prepareStatement(sql);
-			statement.setString(1,  id);
+			statement.setString(1,  rezDTO.getId());
+			statement.setString(2,  rezDTO.getTitle());
+			statement.setString(3,  rezDTO.getMDate());
+			statement.setString(4,  rezDTO.getMTime());
+			statement.setString(5,  rezDTO.getSeatNum());
 			statement.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println("티켓 삭제 SQL 오류");
 			e.printStackTrace();
 		} finally {
 			connectionClose();

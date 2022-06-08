@@ -2,11 +2,19 @@ package DTO;
 
 public class MovieDTO {
 	private String title;
-	private int runningTime;
+	private String runningTime;		// hhmmss 6자리 형식으로 저장
 	
-	public MovieDTO(String title, int runningTime) {
+	public MovieDTO(String title, String runningTime) {
 		this.title = title;
-		this.runningTime = runningTime;
+		if (runningTime.length() == 8)
+		{
+			String[] str = runningTime.split(":");
+			this.runningTime = str[0] + str[1] + str[2];
+		}
+		else
+		{
+			this.runningTime = runningTime;
+		}
 	}
 	
 	public String getTitle() {
@@ -17,11 +25,11 @@ public class MovieDTO {
 		this.title = title;
 	}
 	
-	public int getRunningTime() {
+	public String getRunningTime() {
 		return runningTime;
 	}
 	
-	public void setRunningTime(int runningTime) {
+	public void setRunningTime(String runningTime) {
 		this.runningTime = runningTime;
 	}
 }

@@ -16,13 +16,14 @@ public class SeatSelection extends JFrame {
 	private ButtonGroup adultGroup, teenGroup;
 	private JRadioButton[] adultRadio, teenRadio;
 	private int personCount, price, checkCount = 0;	// 몇 명의 인원을 선택했는지, 최종 가격, 몇 명이 체크되었는지
-	private String id, day, time;
+	private String id, title, day, time;
 	private RezDAO rezDAO;
 	
-	public SeatSelection(String id, String day, String time) {
+	public SeatSelection(String id, String title, String day, String time) {
 		super("좌석 선택");
 		rezDAO = RezDAO.getInstance();
 		this.id= id;
+		this.title = title;
 		this.day = day;
 		this.time = time;
 		
@@ -73,6 +74,7 @@ public class SeatSelection extends JFrame {
 			adultGroup.add(adultRadio[i]);
 			panel.add(adultRadio[i]);
 		}
+		adultRadio[0].setSelected(true);
 		
 		teenGroup = new ButtonGroup();
 		teenRadio = new JRadioButton[8];
@@ -85,6 +87,7 @@ public class SeatSelection extends JFrame {
 			teenGroup.add(teenRadio[i]);
 			panel.add(teenRadio[i]);
 		}
+		teenRadio[0].setSelected(true);
 		
 		priceTextLabel = new JLabel("가격");
 		priceTextLabel.setFont(font);
@@ -144,7 +147,12 @@ public class SeatSelection extends JFrame {
 							{
 								//System.out.print(seat[i][j].getText() + "\t");
 								// TODO: 선택한 영화 제목 받아서 전달해주기
-								rezDAO.reserve(new RezDTO(id, null, day, time, seat[i][j].getText()));
+								//boolean rezSucess = rezDAO.reserve(new RezDTO(id, null, day, time, seat[i][j].getText()));
+								if (true)
+								{
+									JOptionPane.showMessageDialog(null, "예약이 완료되었습니다..", "예약 성공", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								}
 							}
 						}
 					}
@@ -207,6 +215,6 @@ public class SeatSelection extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new SeatSelection(null, null, null);
+		new SeatSelection(null, null, null, null);
 	}
 }

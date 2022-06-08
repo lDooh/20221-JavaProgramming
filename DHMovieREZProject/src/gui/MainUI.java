@@ -10,6 +10,7 @@ import DTO.UserDTO;
 
 public class MainUI extends JFrame {
 	private JPanel panel;
+	// TODO: 영화 정보는 데이터베이스에서 가져오기
 	private ImageIcon[] images = { new ImageIcon("src/image/movie1.jpg"),
 			new ImageIcon("src/image/movie2.jpg"),
 			new ImageIcon("src/image/movie3.png"),
@@ -31,7 +32,6 @@ public class MainUI extends JFrame {
 		this.userDTO = userDTO;
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
-		
 		panel = new JPanel();
 		panel.setLayout(null);
 		
@@ -60,6 +60,12 @@ public class MainUI extends JFrame {
 		rezInfo = new JButton("예약 정보");
 		rezInfo.setBounds(75, 450, 150, 150);
 		rezInfo.setFont(font);
+		rezInfo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel.add(rezInfo);
 		
 		weekGroup = new ButtonGroup();
@@ -109,7 +115,6 @@ public class MainUI extends JFrame {
 							dayStr += "0" + Integer.toString(day.getMonthValue());
 						else
 							dayStr += Integer.toString(day.getMonthValue());
-						
 						if (day.getDayOfMonth() < 10)
 							dayStr += "0" + Integer.toString(day.getDayOfMonth());
 						else
@@ -122,7 +127,15 @@ public class MainUI extends JFrame {
 							timeStr += "0";
 						timeStr += time[0] + ":00:00";
 						
-						new SeatSelection(userDTO.getId(), dayStr, timeStr);
+						// 선택한 영화의 제목
+						String title;
+						for (int j = 0; j < images.length; j++)
+						{
+							// TODO: 선택된 영화의 제목을 title 변수에 넣는 코드
+							// title = movies[j].getTitle
+						}
+						
+						new SeatSelection(userDTO.getId(), null, dayStr, timeStr);
 						dispose();
 						return;
 					}
