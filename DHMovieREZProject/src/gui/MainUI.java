@@ -1,23 +1,21 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Vector;
 
+import DTO.MovieDTO;
 import DTO.UserDTO;
+import DAO.MovieDAO;
 
 public class MainUI extends JFrame {
 	private JPanel panel;
 	// TODO: 영화 정보는 데이터베이스에서 가져오기
-	private ImageIcon[] images = { new ImageIcon("src/image/movie1.jpg"),
-			new ImageIcon("src/image/movie2.jpg"),
-			new ImageIcon("src/image/movie3.png"),
-			new ImageIcon("src/image/movie4.jpg"),
-			new ImageIcon("src/image/movie5.jpg")
-	};
-	private JList<ImageIcon> movieList;
 	private JScrollPane listScrollPane;
 	private JButton rezInfo, rezBt;
 	private JRadioButton[] dayRadio = new JRadioButton[7];
@@ -26,29 +24,53 @@ public class MainUI extends JFrame {
 	private JComboBox<String> rezTime;
 	private JLabel nicknameLabel;
 	private UserDTO userDTO;
+	private MovieDAO movieDAO;
+	private MovieDTO[] movies;
+	private String[] tableHeader = {"Title", "runningTime"};
+	Vector<String> movieVector;
+	private DefaultTableModel model;
+	private JTable table;
 	
 	public MainUI(UserDTO userDTO) {
 		super("DH 영화예매");
 		this.userDTO = userDTO;
+		movieDAO = MovieDAO.getInstance();
 		
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		panel = new JPanel();
 		panel.setLayout(null);
 		
-		for (int i = 0; i < images.length; i++)
+		movies = movieDAO.getMovies();
+		model = new DefaultTableModel(tableHeader, 0);
+		table = new JTable(model);
+		listScrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		listScrollPane.setBounds(75, 75, 700, 200);
+		
+		for (int i = 0; i < movies.length; i++)
+		{
+			movieVector = new Vector<>();
+			movieVector.add(movies[i].getTitle());
+			movieVector.add(movies[i].getRunningTime().substring(0, 2) + ":"
+					+ movies[i].getRunningTime().substring(2, 4) + ":"
+					+ movies[i].getRunningTime().substring(4, 6));
+			model.addRow(movieVector);
+		}
+		add(listScrollPane);
+		
+		/*for (int i = 0; i < images.length; i++)
 		{
 			Image image = images[i].getImage();
 			Image sizedImage = image.getScaledInstance(250,  250,  Image.SCALE_SMOOTH);
 			images[i] = new ImageIcon(sizedImage);
-		}
+		}*/
 		
-		movieList = new JList<>(images);
+		/*movieList = new JList<>(images);
 		movieList.setVisibleRowCount(1);
 		movieList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		movieList.setBounds(75, 75, 700, 200);
 		listScrollPane = new JScrollPane(movieList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		listScrollPane.setBounds(75, 50, 700, 270);
-		panel.add(listScrollPane);
+		panel.add(listScrollPane);*/
 		
 		nicknameLabel = new JLabel(userDTO.getNickname() + " 님");
 		nicknameLabel.setFont(font);
@@ -102,6 +124,13 @@ public class MainUI extends JFrame {
 		rezBt.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int index = table.getSelectedRow();
+				if (index == -1)
+				{
+					JOptionPane.showMessageDialog(null, "영화를 선택해 주세요.", "영화", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				
 				for (int i = 0; i < days.length; i++)
 				{
 					// 선택한 날짜와 시간 정보를 가지고 좌석 선택 화면으로 이동
@@ -128,14 +157,9 @@ public class MainUI extends JFrame {
 						timeStr += time[0] + ":00:00";
 						
 						// 선택한 영화의 제목
-						String title;
-						for (int j = 0; j < images.length; j++)
-						{
-							// TODO: 선택된 영화의 제목을 title 변수에 넣는 코드
-							// title = movies[j].getTitle
-						}
+						String title = (String)table.getValueAt(index, 0);
 						
-						new SeatSelection(userDTO.getId(), null, dayStr, timeStr);
+						new SeatSelection(userDTO.getId(), title, dayStr, timeStr);
 						dispose();
 						return;
 					}

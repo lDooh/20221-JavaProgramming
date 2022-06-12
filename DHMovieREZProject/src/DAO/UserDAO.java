@@ -151,7 +151,7 @@ public class UserDAO {
 			userDTO = new UserDTO[rows];
 			
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			resultSet = statement.executeQuery();
 			
 			UserDTO tmpUserDTO = null;
 			resultSet.next();

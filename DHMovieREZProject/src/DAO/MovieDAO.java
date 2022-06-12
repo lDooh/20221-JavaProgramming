@@ -84,13 +84,13 @@ public class MovieDAO {
 		
 		try {
 			statement = connection.prepareStatement("SELECT count(title) FROM movie;");
-			resultSet = statement.executeQuery("SELECT count(title) FROM movie;");
+			resultSet = statement.executeQuery();
 			resultSet.next();
 			int rows = Integer.parseInt(resultSet.getString("count(title)"));
 			movieDTO = new MovieDTO[rows];
 			
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			resultSet = statement.executeQuery();
 			
 			MovieDTO tmpmovieDTO = null;
 			resultSet.next();

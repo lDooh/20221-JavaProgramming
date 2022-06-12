@@ -58,12 +58,15 @@ public class RezInfoUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int index = table.getSelectedRow();
 				//System.out.println((String)table.getValueAt(index, 0));
-				rezDAO.deleteRez(new RezDTO(userDTO.getId(),
+				if (index >= 0)
+				{
+					rezDAO.deleteRez(new RezDTO(userDTO.getId(),
 											(String)table.getValueAt(index, 0),
 											(String)table.getValueAt(index, 1),
 											(String)table.getValueAt(index, 2),
 											(String)table.getValueAt(index, 3)));
-				model.removeRow(index);
+					model.removeRow(index);
+				}
 			}
 		});
 		add(deleteButton);
@@ -76,6 +79,6 @@ public class RezInfoUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new RezInfoUI(new UserDTO("test", null, "NICK", "00000000", null, null));
+		new RezInfoUI(new UserDTO("qwer", null, "NICK", "00000000", null, null));
 	}
 }

@@ -32,7 +32,7 @@ public class ManagerUI extends JFrame {
 		table = new JTable(model);
 		//table.setFont(font);
 		
-		scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(0, 0, 800, 300);
 		
 		for (int i = 0; i < usersDTO.length; i++)

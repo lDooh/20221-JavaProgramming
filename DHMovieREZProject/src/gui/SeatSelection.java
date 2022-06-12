@@ -147,7 +147,7 @@ public class SeatSelection extends JFrame {
 							{
 								//System.out.print(seat[i][j].getText() + "\t");
 								// TODO: 선택한 영화 제목 받아서 전달해주기
-								//boolean rezSucess = rezDAO.reserve(new RezDTO(id, null, day, time, seat[i][j].getText()));
+								//boolean rezSucess = rezDAO.reserve(new RezDTO(id, null, day, time, rez[i][j].getText()));
 								if (true)
 								{
 									JOptionPane.showMessageDialog(null, "예약이 완료되었습니다..", "예약 성공", JOptionPane.INFORMATION_MESSAGE);
