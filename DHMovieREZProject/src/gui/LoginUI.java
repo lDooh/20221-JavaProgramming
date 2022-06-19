@@ -60,7 +60,7 @@ public class LoginUI  extends JFrame {
 				else if (login == 2)
 				{
 					// 관리자 계정 로그인 시 관리자 메뉴로 접근
-					new ManagerUserUI();
+					new ManagerUI();
 					dispose();
 				}
 				else if (login == -1)
