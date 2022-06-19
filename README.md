@@ -1,5 +1,14 @@
 # 20221-JavaProgramming2
 
+# 14주차
+![image](https://user-images.githubusercontent.com/95271528/174494521-619619f1-0eed-4988-8f8c-a2eab12e99f4.png)
++ 회원은 자신이 예매한 영화 티켓 열람, 삭제 가능
++ 좌석 선택 화면에서 이미 예약이 되어있는 좌석은 선택 불가능
+
+# 13주차
+![image](https://user-images.githubusercontent.com/95271528/174494465-a8c4a49a-002a-4ad0-9909-2e321e081dd1.png)
++ 관리자 계정 로그인 시 회원 정보 관리, 영화 목록 관리
+
 # 12주차
 ![image](https://user-images.githubusercontent.com/95271528/172203646-266a2b8d-8ad3-4c40-8fea-953e6b28c26b.png)
 + 메인화면에서 날짜와 시간을 선택하면 좌석 선택 화면으로 해당 정보 전달
