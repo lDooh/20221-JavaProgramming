@@ -76,7 +76,7 @@ public class UserDAO {
 	}
 	
 	public boolean signUp(UserDTO userDTO) {
-		String sql = "INSERT INTO userinfo VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO userinfo VALUES (?, ?, ?, ?, ?, ?, DEFAULT)";
 		int count = 0;
 		
 		connect();
@@ -107,21 +107,30 @@ public class UserDAO {
 		return false;
 	}
 	
-	// -2: SQL 오류, -1: ID 없음, 0: 비밀번호 틀림, 1: 로그인 성공
+	// -2: SQL 오류, -1: ID 없음, 0: 비밀번호 틀림, 1: 로그인 성공, 2: 관리자
 	public int signIn(String id, String password) {
-		String sql = "SELECT password FROM userinfo WHERE id = '" + id + "'";
+		String sql = "SELECT password, manager FROM userinfo WHERE id = ?";
 		
 		connect();
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			statement.setString(1, id);
+			resultSet = statement.executeQuery();
 			
 			if (resultSet.next())
 			{
 				if (resultSet.getString("password").equals(password))
+				{
+					// 관리자 계정 로그인 시 2 반환
+					if (resultSet.getBoolean("manager") == true)
+					{
+						return 2;
+					}
+					// 일반 계정 로그인 시 1 반환
 					return 1;
-				else
+				}
+				else	// ID가 없으면 0 반환
 					return 0;
 			}
 			else
@@ -144,8 +153,8 @@ public class UserDAO {
 		connect();
 		
 		try {
-			statement = connection.prepareStatement("SELECT count(id) FROM userinfo;");
-			resultSet = statement.executeQuery("SELECT count(id) FROM userinfo;");
+			statement = connection.prepareStatement("SELECT count(id) FROM userinfo");
+			resultSet = statement.executeQuery();
 			resultSet.next();
 			int rows = Integer.parseInt(resultSet.getString("count(id)"));
 			userDTO = new UserDTO[rows];
@@ -176,15 +185,17 @@ public class UserDAO {
 		return userDTO;
 	}
 	
+	// ID로 검색
 	public UserDTO getUserDTO(String id) {
 		UserDTO userDTO;
-		String sql = "SELECT * FROM userinfo WHERE id = '" + id + "'";
+		String sql = "SELECT * FROM userinfo WHERE id = ?";
 		
 		connect();
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			statement.setString(1, id);
+			resultSet = statement.executeQuery();
 			
 			resultSet.next();
 			userDTO = new UserDTO(resultSet.getString("id"),
@@ -203,6 +214,69 @@ public class UserDAO {
 		return null;
 	}
 	
+	// 닉네임으로 검색
+	public UserDTO[] getUsersByNick(String nick) {
+		String sql = "SELECT * FROM userinfo WHERE nickname LIKE ?";
+		UserDTO[] userDTO = null;
+		
+		connect();
+		
+		try {
+			statement = connection.prepareStatement("SELECT count(id) FROM userinfo WHERE nickname LIKE ?");
+			statement.setString(1, "%" + nick + "%");
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			int rows = Integer.parseInt(resultSet.getString("count(id)"));
+			userDTO = new UserDTO[rows];
+			
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, "%" + nick + "%");
+			resultSet = statement.executeQuery();
+			
+			UserDTO tmpUserDTO = null;
+			resultSet.next();
+			for (int i = 0; i < rows; i++)
+			{
+				tmpUserDTO = new UserDTO(resultSet.getString("id"),
+										resultSet.getString("password"),
+										resultSet.getString("nickname"),
+										resultSet.getString("birthday"),
+										resultSet.getString("gender"),
+										resultSet.getString("callNum"));
+				userDTO[i] = tmpUserDTO;
+				resultSet.next();
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
+		
+		return userDTO;
+	}
+	
+	// 유저 정보 수정
+	public void modifyUser(UserDTO userDTO) {
+		String sql = "UPDATE userinfo SET password = ?, nickname = ?, birthday = ? WHERE id = ?";
+		
+		connect();
+
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, userDTO.getPassword());
+			statement.setString(2, userDTO.getNickname());
+			statement.setString(3, userDTO.getbd());
+			statement.setString(4, userDTO.getId());
+			
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
+	}
+	
 	public void deleteUser(String id) {
 		String sql = "DELETE FROM userinfo WHERE id = ?";
 		
@@ -210,7 +284,7 @@ public class UserDAO {
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			statement.setString(1,  id);
+			statement.setString(1, id);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

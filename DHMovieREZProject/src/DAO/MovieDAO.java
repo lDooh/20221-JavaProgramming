@@ -75,6 +75,25 @@ public class MovieDAO {
 		}
 	}
 	
+	// 영화 추가
+	public void addMovie(MovieDTO movieDTO) {
+		String sql = "INSERT INTO movie VALUES (?, ?)";
+		
+		connect();
+		
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, movieDTO.getTitle());
+			statement.setString(2, movieDTO.getRunningTime());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("영화 추가 SQL 오류");
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
+	}
+	
 	// Main화면에 표시할 영화들의 정보 가져오기
 	public MovieDTO[] getMovies() {
 		String sql = "SELECT * FROM movie ORDER BY title";
@@ -108,6 +127,23 @@ public class MovieDAO {
 		}
 		
 		return movieDTO;
+	}
+	
+	public void deleteMovie(String title) {
+		String sql = "DELETE FROM movie WHERE title = ?";
+		
+		connect();
+		
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, title);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("영화 삭제 SQL 오류");
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
 	}
 
 	public static void main(String[] args) {

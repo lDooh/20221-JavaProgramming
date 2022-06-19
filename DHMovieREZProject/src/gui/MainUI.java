@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import DAO.MovieDAO;
 
 public class MainUI extends JFrame {
 	private JPanel panel;
-	// TODO: 영화 정보는 데이터베이스에서 가져오기
 	private JScrollPane listScrollPane;
 	private JButton rezInfo, rezBt;
 	private JRadioButton[] dayRadio = new JRadioButton[7];
@@ -85,7 +83,8 @@ public class MainUI extends JFrame {
 		rezInfo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new RezInfo(userDTO);
+				dispose();
 			}
 		});
 		panel.add(rezInfo);
@@ -159,7 +158,7 @@ public class MainUI extends JFrame {
 						// 선택한 영화의 제목
 						String title = (String)table.getValueAt(index, 0);
 						
-						new SeatSelection(userDTO.getId(), title, dayStr, timeStr);
+						new SeatSelection(userDTO.getId(), title, dayStr, timeStr, userDTO);
 						dispose();
 						return;
 					}

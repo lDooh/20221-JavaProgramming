@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 import DAO.RezDAO;
 import DTO.RezDTO;
+import DTO.UserDTO;
 
 public class SeatSelection extends JFrame {
 	private JPanel panel;
@@ -19,7 +20,7 @@ public class SeatSelection extends JFrame {
 	private String id, title, day, time;
 	private RezDAO rezDAO;
 	
-	public SeatSelection(String id, String title, String day, String time) {
+	public SeatSelection(String id, String title, String day, String time, UserDTO userDTO) {
 		super("좌석 선택");
 		rezDAO = RezDAO.getInstance();
 		this.id= id;
@@ -42,6 +43,8 @@ public class SeatSelection extends JFrame {
 				seat[i][j].setBounds(35 + 65 * j, 35 + 60 * i, 65, 60);
 				seat[i][j].setFont(seatFont);
 				seat[i][j].addItemListener(new seatCheckListener());
+				// 이미 예약되어있는 좌석 체크 불가능하게
+				seat[i][j].setEnabled(!rezDAO.isRezed(new RezDTO(null, title, day, time, seat[i][j].getText())));
 				panel.add(seat[i][j]);
 			}
 		
@@ -146,16 +149,14 @@ public class SeatSelection extends JFrame {
 							if (seat[i][j].isSelected())
 							{
 								//System.out.print(seat[i][j].getText() + "\t");
-								// TODO: 선택한 영화 제목 받아서 전달해주기
-								//boolean rezSucess = rezDAO.reserve(new RezDTO(id, null, day, time, rez[i][j].getText()));
-								if (true)
-								{
-									JOptionPane.showMessageDialog(null, "예약이 완료되었습니다..", "예약 성공", JOptionPane.INFORMATION_MESSAGE);
-									dispose();
-								}
+								rezDAO.reserve(new RezDTO(id, title, day, time, seat[i][j].getText()));
 							}
 						}
 					}
+					
+					JOptionPane.showMessageDialog(null, "예약이 완료되었습니다..", "예약 성공", JOptionPane.INFORMATION_MESSAGE);
+					new MainUI(userDTO);
+					dispose();
 				}
 			}
 		});
@@ -215,6 +216,6 @@ public class SeatSelection extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new SeatSelection(null, null, null, null);
+		new SeatSelection(null, null, null, null, null);
 	}
 }

@@ -84,11 +84,11 @@ public class RezDAO {
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			statement.setString(1,  rezDTO.getId());
-			statement.setString(2,  rezDTO.getTitle());
-			statement.setString(3,  rezDTO.getMDate());
-			statement.setString(4,  rezDTO.getMTime());
-			statement.setString(5,  rezDTO.getSeatNum());
+			statement.setString(1, rezDTO.getId());
+			statement.setString(2, rezDTO.getTitle());
+			statement.setString(3, rezDTO.getMDate());
+			statement.setString(4, rezDTO.getMTime());
+			statement.setString(5, rezDTO.getSeatNum());
 			
 			count = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -109,20 +109,22 @@ public class RezDAO {
 	
 	// 해당 유저의 예약 정보 모두 가져오기
 	public RezDTO[] getRezs(String id) {
-		String sql = "SELECT * FROM rez WHERE ID = '" + id + "' ORDER BY title, mDate, mTime, seatNum";
+		String sql = "SELECT * FROM rez WHERE ID = ? ORDER BY mDate, mTime, title, seatNum";
 		RezDTO[] rezDTO = null;
 		
 		connect();
 		
 		try {
-			statement = connection.prepareStatement("SELECT count(ID) FROM rez WHERE ID = '" + id + "'");
-			resultSet = statement.executeQuery("SELECT count(ID) FROM rez WHERE ID = '" + id + "'");
+			statement = connection.prepareStatement("SELECT count(ID) FROM rez WHERE ID = ?");
+			statement.setString(1, id);
+			resultSet = statement.executeQuery();
 			resultSet.next();
 			int rows = Integer.parseInt(resultSet.getString("count(ID)"));
 			rezDTO = new RezDTO[rows];
 			
 			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			statement.setString(1, id);
+			resultSet = statement.executeQuery();
 			
 			RezDTO tmprezDTO = null;
 			resultSet.next();
@@ -143,6 +145,32 @@ public class RezDAO {
 		}
 		
 		return rezDTO;
+	}
+	
+	// 해당 좌석이 예약이 되어있는지 반환
+	public boolean isRezed(RezDTO rezDTO) {
+		String sql = "SELECT * FROM rez WHERE title = ? AND "
+				+ "mDate = ? AND mTime = ? AND seatNum = ?";
+		
+		connect();
+		
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, rezDTO.getTitle());
+			statement.setString(2, rezDTO.getMDate());
+			statement.setString(3, rezDTO.getMTime());
+			statement.setString(4, rezDTO.getSeatNum());
+			resultSet = statement.executeQuery();
+			
+			return resultSet.next();
+		} catch (SQLException e) {
+			System.out.print("예매 여부 SQL 오류");
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
+		
+		return true;
 	}
 
 	// 예약 정보 삭제
@@ -166,6 +194,29 @@ public class RezDAO {
 		} finally {
 			connectionClose();
 		}
+	}
+	
+	// 예약 현황(수)
+	public int countRez(String title) {
+		String sql = "SELECT COUNT(title) FROM rez WHERE title = ?";
+		int count = 0;
+		
+		connect();
+		
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, title);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			count += resultSet.getInt("COUNT(title)");
+		} catch (SQLException e) {
+			System.out.println("예약 현황 SQL 오류");
+			e.printStackTrace();
+		} finally {
+			connectionClose();
+		}
+		
+		return count;
 	}
 
 	public static void main(String[] args) {

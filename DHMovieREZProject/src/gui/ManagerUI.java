@@ -3,71 +3,48 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Vector;
-import javax.swing.table.*;
-import DAO.UserDAO;
-import DTO.UserDTO;
 
-public class ManagerUI extends JFrame {
+public class ManagerUI extends JFrame{
 	private JPanel panel;
-	private String[] tableHeader = {"ID", "nickname", "birthday", "gender", "callNum"};
-	Vector<String> userVector;
-	private UserDAO userDAO;
-	private UserDTO[] usersDTO;
-	private DefaultTableModel model;
-	private JTable table;
-	private JScrollPane scrollPane;
-	private JButton backButton, modifyButton, deleteButton;
+	private JButton userButton, movieButton;
 	
 	public ManagerUI() {
-		super("회원관리");
+		super("DH 영화예매 관리자 메뉴");
 		panel = new JPanel();
 		panel.setLayout(null);
 		Font font = new Font("Slab Serif", Font.BOLD, 20);
 		
-		userDAO = UserDAO.getInstance();
-		usersDTO = userDAO.getUsers();
-
-		model = new DefaultTableModel(tableHeader, 0);
-		table = new JTable(model);
-		//table.setFont(font);
-		
-		scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(0, 0, 800, 300);
-		
-		for (int i = 0; i < usersDTO.length; i++)
-		{
-			userVector = new Vector<>();
-			userVector.add(usersDTO[i].getId());
-			userVector.add(usersDTO[i].getNickname());
-			userVector.add(usersDTO[i].getbd());
-			userVector.add(usersDTO[i].getGender());
-			userVector.add(usersDTO[i].getCallNum());
-			model.addRow(userVector);
-		}
-		add(scrollPane);
-		
-		deleteButton = new JButton("삭제");
-		deleteButton.setFont(font);
-		deleteButton.setBounds(650, 400, 150, 50);
-		deleteButton.addActionListener(new ActionListener() {
+		userButton = new JButton("회원관리");
+		userButton.setBounds(50, 50, 150, 150);
+		userButton.setFont(font);
+		userButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int index = table.getSelectedRow();
-				//System.out.println((String)table.getValueAt(index, 0));
-				userDAO.deleteUser((String)table.getValueAt(index, 0));
-				model.removeRow(index);
+				new ManagerUserUI();
+				dispose();
 			}
 		});
-		add(deleteButton);
+		add(userButton);
 		
-		add(panel);
+		movieButton = new JButton("영화 관리");
+		movieButton.setBounds(250, 50, 150, 150);
+		movieButton.setFont(font);
+		movieButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ManagerMovieUI();
+				dispose();
+			}
+		});
+		add(movieButton);
+		
+		add(panel);		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(900, 700);
+		setSize(475, 300);
 		setResizable(false);
 		setVisible(true);
 	}
-	
+
 	public static void main(String[] args) {
 		new ManagerUI();
 	}

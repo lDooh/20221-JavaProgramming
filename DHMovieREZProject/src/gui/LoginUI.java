@@ -14,7 +14,7 @@ public class LoginUI  extends JFrame {
 	private JButton signUpButton;
 	private UserDAO userDAO;
 	
-	public LoginUI() {		
+	public LoginUI() {
 		super("영화 예매 로그인");
 		userDAO = UserDAO.getInstance();
 		
@@ -48,13 +48,19 @@ public class LoginUI  extends JFrame {
 		panel.add(signInButton);
 		signInButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {				
 				int login = userDAO.signIn(inputID.getText(), new String(inputPW.getPassword()));
 				if (login == 1)
 				{
 					// 로그인 하면 해당 유저 정보를 MainUI에 전달
 					new MainUI(userDAO.getUserDTO(inputID.getText()));
 					//new ManagerUI();
+					dispose();
+				}
+				else if (login == 2)
+				{
+					// 관리자 계정 로그인 시 관리자 메뉴로 접근
+					new ManagerUserUI();
 					dispose();
 				}
 				else if (login == -1)

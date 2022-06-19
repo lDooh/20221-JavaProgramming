@@ -174,18 +174,19 @@ public class SignUpUI extends JFrame {
 				gender,
 				phone1.getText() + phone2.getText() + phone3.getText());
 		UserDAO userDAO = UserDAO.getInstance();
-		userDAO.signUp(userDTO);
+		boolean su = userDAO.signUp(userDTO);
 		
-		// 테스트용 출력
-		System.out.println("ID: " + userDTO.getId() + 
-				"\nPW: " + userDTO.getPassword() + 
-				"\n닉네임: " + userDTO.getNickname() + 
-				"\n생년월일: " + userDTO.getbd() + 
-				"\n성별: " + userDTO.getGender() + 
-				"\n번호: " + carrierBox.getSelectedItem().toString() + " " +  userDTO.getCallNum());
-		
-		new LoginUI();
-		dispose();
+		if (su)
+		{
+			JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "가입 성공", JOptionPane.INFORMATION_MESSAGE);
+			
+			new LoginUI();
+			dispose();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "회원가입에 실패하였습니다.", "가입 실패", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	// 회원가입 유효성 검사 메서드
